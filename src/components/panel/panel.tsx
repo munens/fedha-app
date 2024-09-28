@@ -20,7 +20,7 @@ interface IPanelProps {
 
 const Panel = ({
   children,
-  backgroundColor = 'bg-black-100',
+  backgroundColor = 'bg-black-700',
   className
 }: IPanelProps) => (
   <div

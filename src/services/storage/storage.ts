@@ -1,10 +1,13 @@
 import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { EventNames, FedhaEvent } from '../../models/event.ts';
+import { FedhaEventTarget } from './types.ts';
 
-class StorageService {
+class StorageService extends FedhaEventTarget {
   private static _instance: this;
   private readonly localStorage: Storage;
 
   constructor() {
+    super();
     this.localStorage = window.localStorage;
   }
 
@@ -16,14 +19,20 @@ class StorageService {
     return value ? this.parseValueFromStorage<JwtPayload & T>(value) : null;
   };
 
-  setValueIfNotInStorage = <T>(token: string, value: T): void => {
-    if (!this.getValueFromStorage(token)) {
-      localStorage.setItem(token, value);
+  replaceValueInStorage = <T>(token: string, value: T): void => {
+    if (this.getValueFromStorage(token)) {
+      this.removeValueFromStorage(token);
     }
+
+    localStorage.setItem(token, value);
+    this.dispatchEvent(new FedhaEvent(EventNames.NEW_TOKEN));
   };
 
   removeValueFromStorage = (token: string): void => {
-    localStorage.removeItem(token);
+    if (this.getValueFromStorage(token)) {
+      localStorage.removeItem(token);
+    }
+    this.dispatchEvent(new FedhaEvent(EventNames.TOKEN_REMOVED));
   };
 
   private parseValueFromStorage = (token: string): JwtPayload =>
