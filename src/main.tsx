@@ -7,16 +7,16 @@ import {
   Route,
   RouterProvider
 } from 'react-router-dom';
-import { Dashboard } from './pages/dashboard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import UserProvider from './providers/user.tsx';
 import { Login } from './pages/login';
+import { DashboardRouter } from './pages/dashboard';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route element={<UserProvider />}>
-        <Route element={<Dashboard />} path="/" />
+        <Route element={<DashboardRouter />} path="/" />
       </Route>
       <Route element={<Login />} path="/login" />
     </Route>

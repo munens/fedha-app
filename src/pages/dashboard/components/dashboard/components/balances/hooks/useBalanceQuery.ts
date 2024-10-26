@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '../../../../services/api.ts';
+import api from '../../../../../../../services/api.ts';
 import { IAccountBalances } from './types.ts';
 import { AxiosResponse } from 'axios';
 

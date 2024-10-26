@@ -1,1 +1,1 @@
-export { default as Dashboard } from './dashboard.tsx';
+export { default as DashboardRouter } from './router.tsx';

@@ -1,16 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import api from '../services/api.ts';
+import api from '../../services/api.ts';
 import { AxiosResponse } from 'axios';
-import { storageService } from '../services/storage';
-import FEDHA_TOKEN_KEY from '../constants.ts';
-import { IAuthenticatedUser } from '../models/authenticated-user.ts';
+import { storageService } from '../../services/storage';
+import FEDHA_TOKEN_KEY from '../../constants.ts';
+import { IAuthenticatedUser } from '../../models/authenticated-user.ts';
+import { JwtPayload } from './types.ts';
 
-interface JwtPayload {
-  userId: string;
-  username: string;
-}
-
-const useUserQuery = () => {
+const useQueryUser = () => {
   const payload =
     storageService.getParsedValueFromStorage<JwtPayload>(FEDHA_TOKEN_KEY);
 
@@ -35,4 +31,4 @@ const useUserQuery = () => {
   };
 };
 
-export default useUserQuery;
+export default useQueryUser;

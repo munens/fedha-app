@@ -1,15 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
-import api from '../services/api.ts';
-import { IAuthenticatedUser } from '../models/authenticated-user.ts';
+import api from '../../services/api.ts';
+import { IAuthenticatedUser } from '../../models/authenticated-user.ts';
 import { AxiosResponse } from 'axios';
+import { IAuthenticateUserProps } from './types.ts';
 
-interface IAuthenticateUserProps {
-  username: string;
-  password: string;
-}
-
-const useMutateAuthenticateUser = () => {
-  const mutation = useMutation({
+const useMutationAuthenticateUser = () => {
+  const mutation = useMutation<
+    IAuthenticatedUser,
+    null,
+    IAuthenticateUserProps
+  >({
     mutationFn: (payload) =>
       api.client
         .post<
@@ -34,4 +34,4 @@ const useMutateAuthenticateUser = () => {
   };
 };
 
-export default useMutateAuthenticateUser;
+export default useMutationAuthenticateUser;

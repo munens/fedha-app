@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import UserContext from '../contexts/user.ts';
-import useUserQuery from '../hooks/useUserQuery.ts';
 import { IUser } from '../models/user.ts';
 import { storageService } from '../services/storage';
 import FEDHA_TOKEN_KEY from '../constants.ts';
 import { Outlet, useNavigate } from 'react-router-dom';
+import { useQueryUser } from '../hooks';
 
 const UserProvider = () => {
   const [user, setUser] = useState<IUser | null>(null);
   const navigate = useNavigate();
 
   const token = storageService.getValueFromStorage(FEDHA_TOKEN_KEY);
-  const { authenticatedUser, isLoading, error, isSuccess } = useUserQuery();
+  const { authenticatedUser, isLoading, error, isSuccess } = useQueryUser();
 
   const navigateToLogin = () => navigate('/login');
 

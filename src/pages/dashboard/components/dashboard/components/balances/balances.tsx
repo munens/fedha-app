@@ -1,6 +1,6 @@
 import React from 'react';
 import useBalanceQuery from './hooks/useBalanceQuery.ts';
-import { Panel } from '../../../components';
+import { Panel } from '../../../../../../components';
 
 const Balances = () => {
   const { data, isLoading, isSuccess, error } = useBalanceQuery();

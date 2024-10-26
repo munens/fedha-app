@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Panel, TextField, Button } from '../../components';
-import useMutateAuthenticateUser from '../../hooks/useMutateAuthenticateUser.ts';
+import { useMutationAuthenticateUser } from '../../hooks/';
 import { useNavigate } from 'react-router-dom';
 import { storageService } from '../../services/storage/';
 import FEDHA_TOKEN_KEY from '../../constants.ts';
-import api from '../../services/api.ts';
 
 const Login = () => {
   const [username, setUsername] = useState<string>('');
@@ -12,7 +11,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { authenticateUser, authenticatedUser, isError, isSuccess } =
-    useMutateAuthenticateUser();
+    useMutationAuthenticateUser();
 
   const onLoginPress = () =>
     authenticateUser({
