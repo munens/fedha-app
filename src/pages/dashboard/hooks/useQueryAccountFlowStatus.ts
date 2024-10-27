@@ -6,7 +6,7 @@ import { IAccountFlowStatus } from './types.ts';
 const useQueryAccountFlowStatus = (enabled: boolean) => {
   const { data, isLoading, isSuccess, error, refetch } = useQuery({
     enabled,
-    queryKey: ['account-flow-status-status'],
+    queryKey: ['account-flow-status'],
     queryFn: () =>
       api.client
         .get<
@@ -17,7 +17,7 @@ const useQueryAccountFlowStatus = (enabled: boolean) => {
   });
 
   return {
-    status: (data as IAccountFlowStatus).status,
+    status: (data as IAccountFlowStatus)?.status,
     isLoading,
     error,
     isSuccess,

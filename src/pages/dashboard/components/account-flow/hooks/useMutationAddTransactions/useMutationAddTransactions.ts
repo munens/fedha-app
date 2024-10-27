@@ -4,12 +4,9 @@ import api from '../../../../../../services/api.ts';
 
 const useMutationAddTransactions = () => {
   const mutation = useMutation<void, null, void>({
-    mutationFn: (payload) =>
+    mutationFn: () =>
       api.client
-        .post<
-          void,
-          AxiosResponse<void>
-        >('/finance/accounts/transactions', payload)
+        .post<void, AxiosResponse<void>>('/finance/transactions')
         .then((res) => res.data)
   });
 

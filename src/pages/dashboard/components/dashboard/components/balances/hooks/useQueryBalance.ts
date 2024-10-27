@@ -3,7 +3,7 @@ import api from '../../../../../../../services/api.ts';
 import { IAccountBalances } from './types.ts';
 import { AxiosResponse } from 'axios';
 
-const useBalanceQuery = () => {
+const useQueryBalance = () => {
   const { data, isLoading, isSuccess, error, refetch } = useQuery({
     queryKey: ['balances'],
     queryFn: () =>
@@ -24,4 +24,4 @@ const useBalanceQuery = () => {
   };
 };
 
-export default useBalanceQuery;
+export default useQueryBalance;

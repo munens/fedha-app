@@ -1,5 +1,9 @@
 import React from 'react';
-import { AccountFlowStatus, Balances } from './components';
+import {
+  AccountFlowStatus,
+  Balances,
+  TransactionsOverview
+} from './components';
 import { Layout } from '../../../../components/layout';
 import useAccountFlowStatus from '../../hooks/useQueryAccountFlowStatus.ts';
 import { AccountFlowStatusType } from '../../hooks';
@@ -14,8 +18,13 @@ const Dashboard = () => {
   return (
     <Layout>
       {status === AccountFlowStatusType.Complete ? (
-        <div className="col-span-3">
-          <Balances />
+        <div>
+          <div className="col-span-3">
+            <Balances />
+          </div>
+          <div className="col-span-9">
+            <TransactionsOverview />
+          </div>
         </div>
       ) : (
         <div className="col-span-3">
