@@ -1,5 +1,5 @@
 import React from 'react';
-import { Panel } from '../../../../../../components';
+import { LineChart, Panel } from '../../../../../../components';
 import useQueryTransactionOverview from './hooks/useQueryTransactionOverview.ts';
 
 const TransactionsOverview = () => {
@@ -10,7 +10,22 @@ const TransactionsOverview = () => {
     return null;
   }
 
-  return <Panel />;
+  const lineData = data.transactionsData.map((transaction) => ({
+    x: new Date(transaction.date),
+    y: transaction.balance
+  }));
+
+  return (
+    <Panel>
+      <LineChart
+        data={lineData}
+        height={500}
+        width={1000}
+        xAxisLabel="Date"
+        yAxisLabel="Balance"
+      />
+    </Panel>
+  );
 };
 
 export default TransactionsOverview;

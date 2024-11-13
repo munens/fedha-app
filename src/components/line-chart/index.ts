@@ -1,1 +1,1 @@
-export { default as LineChart } from './line-chart.tsx';
+export { default } from './line-chart.tsx';

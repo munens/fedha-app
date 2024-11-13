@@ -4,9 +4,9 @@ import {
   Balances,
   TransactionsOverview
 } from './components';
-import { Layout } from '../../../../components/layout';
 import useAccountFlowStatus from '../../hooks/useQueryAccountFlowStatus.ts';
 import { AccountFlowStatusType } from '../../hooks';
+import { Layout } from '../../../../components';
 
 const Dashboard = () => {
   const { status, isLoading } = useAccountFlowStatus(true);
@@ -18,14 +18,14 @@ const Dashboard = () => {
   return (
     <Layout>
       {status === AccountFlowStatusType.Complete ? (
-        <div>
+        <>
           <div className="col-span-3">
             <Balances />
           </div>
           <div className="col-span-9">
             <TransactionsOverview />
           </div>
-        </div>
+        </>
       ) : (
         <div className="col-span-3">
           <AccountFlowStatus />

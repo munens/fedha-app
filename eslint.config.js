@@ -72,11 +72,6 @@ export default tseslint.config(
       'react/prop-types': 'off',
       '@typescript-eslint/naming-convention': [
         'warn',
-        // {
-        //   selector: 'default',
-        //   format: ['camelCase'],
-        //   leadingUnderscore: 'allow'
-        // },
         {
           selector: 'variable',
           // Specify PascalCase for React components

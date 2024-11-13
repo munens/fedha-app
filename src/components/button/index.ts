@@ -1,9 +1,9 @@
-import Secondary from "./secondary.tsx";
-import Primary from "./primary.tsx";
+import Secondary from './secondary.tsx';
+import Primary from './primary.tsx';
 
 const Button = {
-	Primary,
-	Secondary
-}
+  Primary,
+  Secondary
+};
 
 export default Button;

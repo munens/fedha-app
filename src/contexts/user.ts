@@ -5,6 +5,6 @@ interface IUserContext {
   user: IUser | null;
 }
 
-const UserContext = createContext<IUserContext>({});
+const UserContext = createContext<IUserContext>({ user: null });
 
 export default UserContext;

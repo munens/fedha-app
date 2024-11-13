@@ -1,1 +1,1 @@
-export { default as Panel } from './panel.tsx';
+export { default } from './panel.tsx';

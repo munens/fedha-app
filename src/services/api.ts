@@ -21,7 +21,7 @@ class ApiService {
 
     storageService.addEventListener(
       EventNames.TOKEN_REMOVED,
-      this.updateClientAuthorizationHeader
+      this.removeClientAuthorizationHeader
     );
 
     this.updateClientAuthorizationHeader();
