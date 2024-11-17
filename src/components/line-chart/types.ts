@@ -6,13 +6,14 @@ interface IMarginProps {
 }
 
 export interface ILineChartData {
-  readonly x: Date;
-  readonly y: number;
+  x: Date;
+  y: number;
 }
 
 interface ILineDataProps {
   lineData: ILineChartData[];
   lineColor: string;
+  useDots: boolean;
 }
 
 export interface ILineChartProps {
@@ -22,4 +23,12 @@ export interface ILineChartProps {
   readonly xAxisLabel: string;
   readonly yAxisLabel: string;
   readonly margin: IMarginProps;
+  readonly min: {
+    readonly x: Date;
+    readonly y: number;
+  };
+  readonly max: {
+    readonly x: Date;
+    readonly y: number;
+  };
 }

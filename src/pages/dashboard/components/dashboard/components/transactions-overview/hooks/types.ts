@@ -40,6 +40,8 @@ interface IAccountDataDto {
 
 export interface IOverviewDto {
   overallBalance: number;
+  minBalance: number;
+  maxBalance: number;
   transactionsData: ITransactionData[];
   depositoryAccounts: IAccountDataDto[];
   creditAccounts: IAccountDataDto[];

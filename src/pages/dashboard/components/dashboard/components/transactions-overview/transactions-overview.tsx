@@ -15,15 +15,32 @@ const TransactionsOverview = () => {
     y: transaction.balance
   }));
 
+  const lineChartProps = {
+    data: [
+      {
+        lineData,
+        lineColor: '#fff',
+        useDots: true
+      }
+    ],
+    height: 500,
+    margin: { top: 20, right: 30, bottom: 50, left: 60 },
+    max: {
+      x: lineData[0].x,
+      y: data.maxBalance
+    },
+    min: {
+      x: lineData[lineData.length - 1].x,
+      y: data.minBalance
+    },
+    width: 1000,
+    xAxisLabel: 'Date',
+    yAxisLabel: 'Balance'
+  };
+
   return (
     <Panel>
-      <LineChart
-        data={lineData}
-        height={500}
-        width={1000}
-        xAxisLabel="Date"
-        yAxisLabel="Balance"
-      />
+      <LineChart {...lineChartProps} />
     </Panel>
   );
 };

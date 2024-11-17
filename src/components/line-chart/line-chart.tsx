@@ -10,12 +10,14 @@ const lineGraphProps = {
 };
 
 const LineChart = ({
-  data = [[]],
+  data = [],
   width,
   height,
   xAxisLabel,
   yAxisLabel,
-  margin
+  margin,
+  min,
+  max
 }: ILineChartProps) => {
   const svgRef = useRef<SVGElement>();
 
@@ -44,38 +46,19 @@ const LineChart = ({
         `translate(${margin.left},${lineGraphProps.margin.top})`
       );
 
-    data.forEach((lineDataProp) => {
-      const { lineData } = lineDataProp;
-      const xScale = d3
-        .scaleUtc()
-        .domain(d3.extent(lineData, (d) => d.x) as [Date, Date])
-        .range([0, innerWidth])
-        .nice();
+    const xScale = d3
+      .scaleUtc()
+      .domain([min.x, max.x])
+      .range([0, innerWidth])
+      .nice();
 
-      const yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(lineData, (d) => d.y) as number])
-        .range([innerHeight, 0])
-        .nice();
+    const yScale = d3
+      .scaleLinear()
+      .domain([min.y, max.y])
+      .range([innerHeight, 0])
+      .nice();
 
-      // Create line generator
-      const line = d3
-        .line<ILineChartData>()
-        .x((d) => xScale(d.x))
-        .y((d) => yScale(d.y))
-        .curve(d3.curveCardinalOpen);
-
-      // Add the line path
-      svg
-        .append('path')
-        .datum(lineData)
-        .attr('fill', 'none')
-        .attr('stroke', lineDataProp.lineColor)
-        .attr('stroke-width', 2)
-        .attr('d', line);
-    });
     // Set up scales
-
     // Add X axis
     svg
       .append('g')
@@ -105,43 +88,56 @@ const LineChart = ({
       .attr('text-anchor', 'middle')
       .text(yAxisLabel);
 
-    // Create line generator
-    const line = d3
-      .line<ILineChartData>()
-      .x((d) => xScale(d.x))
-      .y((d) => yScale(d.y))
-      .curve(d3.curveCardinalOpen);
+    data.forEach((lineDataProp) => {
+      const { lineData, useDots } = lineDataProp;
 
-    // Add the line path
-    svg
-      .append('path')
-      .datum(data)
-      .attr('fill', 'none')
-      .attr('stroke', lineGraphProps.lineColor)
-      .attr('stroke-width', 2)
-      .attr('d', line);
+      // Create line generator
+      const line = d3
+        .line<ILineChartData>()
+        .x((d) => xScale(d.x))
+        .y((d) => yScale(d.y))
+        .curve(d3.curveCardinalOpen);
 
-    // Add dots
-    // svg
-    //   .selectAll('.dot')
-    //   .data(data)
-    //   .enter()
-    //   .append('circle')
-    //   .attr('class', 'dot')
-    //   .attr('cx', (d) => xScale(d.x))
-    //   .attr('cy', (d) => yScale(d.y))
-    //   .attr('r', 4)
-    //   .attr('fill', lineGraphProps.lineColor)
-    //   .attr('stroke', 'white')
-    //   .attr('stroke-width', 2);
+      // Add the line path
+      svg
+        .append('path')
+        .datum(lineData)
+        .attr('fill', 'none')
+        .attr('stroke', lineDataProp.lineColor)
+        .attr('stroke-width', 2)
+        .attr('d', line);
+
+      // Add dots
+
+      if (useDots) {
+        svg
+          .selectAll('.dot')
+          .data(lineData)
+          .enter()
+          .append('circle')
+          .attr('class', 'dot')
+          .attr('cx', (d) => xScale(d.x))
+          .attr('cy', (d) => yScale(d.y))
+          .attr('r', 4)
+          .attr('fill', lineGraphProps.lineColor)
+          .attr('stroke', 'white')
+          .attr('stroke-width', 2);
+      }
+    });
   }, [
     data,
     width,
     height,
-    lineGraphProps.margin,
     xAxisLabel,
     yAxisLabel,
-    lineGraphProps.lineColor
+    margin.left,
+    margin.right,
+    margin.top,
+    margin.bottom,
+    min.x,
+    min.y,
+    max.x,
+    max.y
   ]);
 
   return (
