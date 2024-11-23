@@ -96,7 +96,7 @@ const LineChart = ({
         .line<ILineChartData>()
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y))
-        .curve(d3.curveCardinalOpen);
+        .curve(d3.curveBasis);
 
       // Add the line path
       svg
