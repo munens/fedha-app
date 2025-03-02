@@ -2,7 +2,7 @@ import React from 'react';
 import {
   AccountFlowStatus,
   Balances,
-  TransactionsOverview
+  TransactionsGraphOverview
 } from './components';
 import useAccountFlowStatus from '../../hooks/useQueryAccountFlowStatus.ts';
 import { AccountFlowStatusType } from '../../hooks';
@@ -23,7 +23,7 @@ const Dashboard = () => {
             <Balances />
           </div>
           <div className="col-span-9">
-            <TransactionsOverview />
+            <TransactionsGraphOverview />
           </div>
         </>
       ) : (

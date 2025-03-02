@@ -1,3 +1,3 @@
 export { AccountFlowStatus } from './account-flow-status';
 export { Balances } from './balances';
-export { TransactionsOverview } from './transactions-overview';
+export { TransactionsGraphOverview } from './transactions-graph-overview';

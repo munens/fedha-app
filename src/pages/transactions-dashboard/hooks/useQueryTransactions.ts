@@ -1,25 +1,25 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../../../services/api.ts';
 import { AxiosResponse } from 'axios';
-import { IAccountFlowStatus } from './types.ts';
+import { ITransactionDto } from './types.ts';
 
-const useQueryAccountFlowStatus = (enabled: boolean) => {
+const useQueryTransactions = (enabled: boolean) => {
   const { data, isLoading, isSuccess, error, refetch } = useQuery({
     enabled,
-    queryKey: ['account-flow-status'],
+    queryKey: ['transactions'],
     queryFn: () =>
       api.client
         .get<
-          IAccountFlowStatus,
-          AxiosResponse<IAccountFlowStatus>
-        >('/finance/account-flow/status')
+          ReadonlyArray<ITransactionDto>,
+          AxiosResponse<ReadonlyArray<ITransactionDto>>
+        >('/finance/transactions')
         .then((res) => res.data),
     retry: false,
     staleTime: 60 * 60 * 1000 // 1 hour
   });
 
   return {
-    status: (data as IAccountFlowStatus)?.status,
+    transactions: data as ReadonlyArray<ITransactionDto>,
     isLoading,
     error,
     isSuccess,
@@ -27,4 +27,4 @@ const useQueryAccountFlowStatus = (enabled: boolean) => {
   };
 };
 
-export default useQueryAccountFlowStatus;
+export default useQueryTransactions;

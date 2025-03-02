@@ -1,16 +1,8 @@
+import { IBankAccount } from '../../../../../../models/bank-account.ts';
+
 interface IInstitution {
   name: string;
   institutionId: string;
-}
-
-interface IAccount {
-  id: string;
-  name: string;
-  mask: string;
-  type: string;
-  subType: string;
-  classType?: string;
-  verificationStatus: string;
 }
 
 export interface IPlaidLinkMetadataProps {
@@ -19,6 +11,6 @@ export interface IPlaidLinkMetadataProps {
   status: string;
   linkSessionId: string;
   institution: IInstitution;
-  accounts: ReadonlyArray<IAccount>;
+  accounts: ReadonlyArray<IBankAccount>;
   runJob?: boolean;
 }

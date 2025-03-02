@@ -11,7 +11,7 @@ class ApiService {
   constructor() {
     this.client = axios.create({
       baseURL: import.meta.env.VITE_API_SERVER_URL,
-      timeout: 5000
+      timeout: 20000
     });
 
     storageService.addEventListener(

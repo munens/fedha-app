@@ -22,8 +22,8 @@ const Balances = () => {
           <div className="flex flex-col" key={accountId}>
             <p>{name}</p>
             <div className="flex gap-1">
-              <span>{currencyCode}</span>
               <span>{availableBalance}</span>
+              <span>{currencyCode}</span>
             </div>
           </div>
         );

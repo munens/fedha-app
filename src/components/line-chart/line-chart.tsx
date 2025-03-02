@@ -2,13 +2,6 @@ import { ILineChartData, ILineChartProps } from './types.ts';
 import * as d3 from 'd3';
 import { useEffect, useRef } from 'react';
 
-const lineGraphProps = {
-  margin: { top: 20, right: 30, bottom: 50, left: 60 },
-  xAxisLabel: 'Date',
-  yAxisLabel: 'Value',
-  lineColor: '#fff'
-};
-
 const LineChart = ({
   data = [],
   width,
@@ -16,6 +9,8 @@ const LineChart = ({
   xAxisLabel,
   yAxisLabel,
   margin,
+  xAxisTicksCount,
+  yAxisTicksCount,
   min,
   max
 }: ILineChartProps) => {
@@ -41,10 +36,7 @@ const LineChart = ({
       .attr('width', width)
       .attr('height', height)
       .append('g')
-      .attr(
-        'transform',
-        `translate(${margin.left},${lineGraphProps.margin.top})`
-      );
+      .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const xScale = d3
       .scaleUtc()
@@ -66,7 +58,7 @@ const LineChart = ({
       .call(
         d3
           .axisBottom(xScale)
-          .ticks(width / 80)
+          .ticks(xAxisTicksCount ?? width / 80)
           .tickSizeOuter(0)
       )
       .append('text')
@@ -79,7 +71,7 @@ const LineChart = ({
     // Add Y axis
     svg
       .append('g')
-      .call(d3.axisLeft(yScale))
+      .call(d3.axisLeft(yScale).ticks(yAxisTicksCount ?? height / 40))
       .append('text')
       .attr('class', 'text-sm fill-gray-600')
       .attr('transform', 'rotate(-90)')
@@ -89,21 +81,21 @@ const LineChart = ({
       .text(yAxisLabel);
 
     data.forEach((lineDataProp) => {
-      const { lineData, useDots } = lineDataProp;
+      const { lineData, lineColor, useDots } = lineDataProp;
 
       // Create line generator
       const line = d3
         .line<ILineChartData>()
         .x((d) => xScale(d.x))
         .y((d) => yScale(d.y))
-        .curve(d3.curveBasis);
+        .curve(d3.curveBasisOpen);
 
       // Add the line path
       svg
         .append('path')
         .datum(lineData)
         .attr('fill', 'none')
-        .attr('stroke', lineDataProp.lineColor)
+        .attr('stroke', lineColor)
         .attr('stroke-width', 2)
         .attr('d', line);
 
@@ -119,7 +111,7 @@ const LineChart = ({
           .attr('cx', (d) => xScale(d.x))
           .attr('cy', (d) => yScale(d.y))
           .attr('r', 4)
-          .attr('fill', lineGraphProps.lineColor)
+          .attr('fill', lineColor)
           .attr('stroke', 'white')
           .attr('stroke-width', 2);
       }

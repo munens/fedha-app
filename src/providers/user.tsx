@@ -16,15 +16,12 @@ const UserProvider = () => {
   const navigateToLogin = () => navigate('/login');
 
   useEffect(() => {
-    console.log({ token });
-
     if (!token) {
       navigateToLogin();
     }
   }, [token]);
 
   useEffect(() => {
-    console.log({ authenticatedUser });
     if (isSuccess) {
       const { user } = authenticatedUser;
       if (user) {
@@ -34,7 +31,6 @@ const UserProvider = () => {
   }, [isSuccess, authenticatedUser]);
 
   useEffect(() => {
-    console.log({ error });
     if (error?.status === 403) {
       storageService.removeValueFromStorage(FEDHA_TOKEN_KEY);
       navigateToLogin();

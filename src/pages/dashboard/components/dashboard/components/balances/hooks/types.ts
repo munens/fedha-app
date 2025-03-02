@@ -1,25 +1,7 @@
-interface IBalance {
-  available: number;
-  current: number;
-  isoCurrencyCode: string;
-  limit: number;
-  unofficialCurrencyCode: string;
-}
+import { IBankAccount } from '../../../../../../../models/bank-account.ts';
 
-interface IAccount {
-  accountId: string;
-  balances: IBalance;
-  holderCategory: string;
-  mask: string;
-  name: string;
-  officialName: string;
-  persistentAccountId: string;
-  subtype: string;
-  type: string;
-}
-
-export interface IAccountBalances {
-  overallBalance: number;
-  overallCredit: number;
-  accounts: ReadonlyArray<IAccount>;
+export interface IBankAccountBalances {
+  readonly overallBalance: number;
+  readonly overallCredit: number;
+  readonly accounts: ReadonlyArray<IBankAccount>;
 }

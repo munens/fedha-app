@@ -9,7 +9,9 @@ const useQueryPlaidTokenLink = () => {
     queryFn: () =>
       api.client
         .get<ILinkToken, AxiosResponse<ILinkToken>>('/finance/plaid-token-link')
-        .then((res) => res.data)
+        .then((res) => res.data),
+    retry: false,
+    staleTime: 60 * 60 * 1000 // 1 hour
   });
 
   return {

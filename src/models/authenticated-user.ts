@@ -1,6 +1,6 @@
 import { IUser } from './user.ts';
 
 export interface IAuthenticatedUser {
-  user: IUser;
-  token: string;
+  readonly user: IUser;
+  readonly token: string;
 }

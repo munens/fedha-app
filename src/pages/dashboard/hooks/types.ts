@@ -4,5 +4,5 @@ export enum AccountFlowStatusType {
 }
 
 export interface IAccountFlowStatus {
-  status: AccountFlowStatusType;
+  readonly status: AccountFlowStatusType;
 }

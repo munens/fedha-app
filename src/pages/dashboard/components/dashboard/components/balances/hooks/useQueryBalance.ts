@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import api from '../../../../../../../services/api.ts';
-import { IAccountBalances } from './types.ts';
+import { IBankAccountBalances } from './types.ts';
 import { AxiosResponse } from 'axios';
 
 const useQueryBalance = () => {
@@ -9,14 +9,16 @@ const useQueryBalance = () => {
     queryFn: () =>
       api.client
         .get<
-          IAccountBalances,
-          AxiosResponse<IAccountBalances>
+          IBankAccountBalances,
+          AxiosResponse<IBankAccountBalances>
         >('/finance/accounts/balances')
-        .then((res) => res.data)
+        .then((res) => res.data),
+    retry: false,
+    staleTime: 60 * 60 * 1000 // 1 hour
   });
 
   return {
-    data: data as IAccountBalances,
+    data: data as IBankAccountBalances,
     isLoading,
     isSuccess,
     error,
